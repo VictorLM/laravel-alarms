@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Equipment extends Model
 {
@@ -17,11 +17,13 @@ class Equipment extends Model
      */
     protected $table = 'equipments';
 
+    protected $fillable = ['name', 'description', 'serial_number', 'type'];
+
     /**
-     * Get the Alarm associated with the Equipment.
+     * Get the alarms for the equipment.
      */
-    public function alarm(): HasOne
+    public function alarms(): HasMany
     {
-        return $this->hasOne(Alarm::class);
+        return $this->hasMany(Alarm::class);
     }
 }

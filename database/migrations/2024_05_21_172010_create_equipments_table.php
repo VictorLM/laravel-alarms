@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('equipments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('description');
             $table->string('serial_number');
             $table->enum('type', ['voltage', 'current', 'oil']);
             $table->timestamps();

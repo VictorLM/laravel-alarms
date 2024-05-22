@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Alarm;
+use App\Models\Equipment;
 
 class AlarmsController extends Controller
 {
@@ -11,7 +13,10 @@ class AlarmsController extends Controller
      */
     public function index()
     {
-        //
+        $title = 'Laravel Alarmes | Alarmes';
+        $alarms = Alarm::with('equipment')->get();
+
+        return view('alarms.index', compact('title', 'alarms'));
     }
 
     /**
@@ -19,7 +24,10 @@ class AlarmsController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Laravel Alarmes | Novo Alarme';
+        // assuming that each equipment can have more than one alarm
+        $equipments = Equipment::select('id', 'name')->get();
+        return view('alarms.create', compact('title', 'equipments'));
     }
 
     /**
@@ -27,31 +35,65 @@ class AlarmsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'classification' => 'required|in:urgent,emergent,ordinary',
+            'active' => 'required|boolean',
+            'equipment_id' => 'exists:App\Models\Equipment,id'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+
+        $data = [];
+
+        if ($request->active == "1") {
+           $data = array_merge($request->all(), ['deactivated_at' => null]);
+        } else {
+            $data = array_merge($request->all(), ['deactivated_at' => now()]);
+        }
+
+        Alarm::create($data);
+
+
+        return redirect()->route('alarms.index')->with('success', 'Alarme cadastrado com sucesso!');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Alarm $alarm)
     {
-        //
+        $title = 'Laravel Alarmes | Editar Alarme';
+        // cant edit the related equipment, to no lost the Alarm historic
+        return view('alarms.edit', compact('title', 'alarm'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Alarm $alarm)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'classification' => 'required|in:urgent,emergent,ordinary',
+            'active' => 'required|boolean',
+        ]);
+
+        $data = [];
+
+        if ($request->active == "1") {
+            $data = array_merge($request->all(), ['deactivated_at' => null]);
+        } else {
+            $data =  array_merge($request->all(), ['deactivated_at' => now()]);
+        }
+
+        // prevent equipment id update
+        $data = array_merge($data, ['equipment_id' => $alarm->equipment->id]);
+
+        $alarm->update($data);
+
+        return redirect()->route('alarms.index')->with('success', 'Alarme atualizado com sucesso!');
     }
 
     /**
