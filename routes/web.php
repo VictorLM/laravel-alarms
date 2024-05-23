@@ -3,15 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EquipmentsController;
 use App\Http\Controllers\AlarmsController;
+use App\Http\Controllers\ActuationsController;
 
 Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/actuations', function () {
-    return view('actuations', ['title' => 'Laravel Alarmes | Atuações dos Alarmes', 'actuations' => []]);
-});
 
 Route::resource('equipments', EquipmentsController::class);
 
 Route::resource('alarms', AlarmsController::class);
+
+Route::get('/actuations', [ActuationsController::class, 'index'])->name('actuations.index');

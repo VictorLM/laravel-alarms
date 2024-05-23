@@ -8,7 +8,7 @@
             </h2>
 
             <a href="/equipments/create">
-                <button type="button" class="btn btn-primary mt-2">+ Novo</button>
+                <button type="button" class="btn btn-success mt-2">+ Novo</button>
             </a>
 
         </div>
@@ -28,7 +28,7 @@
             @if (count($equipments) === 0)
                 Nenhum Equipamento cadastrado!
             @else
-                <table class="table table-light">
+                <table class="table table-sm table-light">
                     <thead>
                         <tr>
                             <th scope="col">Nome</th>

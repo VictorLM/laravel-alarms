@@ -41,7 +41,7 @@
 
                 <div class="mb-3">
                     <label for="type" class="form-label">Tipo</label>
-                    <select class="form-select" id="type" name="type">
+                    <select class="form-select" id="type" name="type" required>
                         <option {{ old('type') === '' ? 'selected' : '' }}>Selecione uma opção</option>
                         <option value="voltage" {{ old('type') === 'voltage' ? 'selected' : '' }}>Tensão</option>
                         <option value="current" {{ old('type') === 'current' ? 'selected' : '' }}>Corrente</option>
@@ -49,7 +49,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn btn-primary mt-2">Salvar</button>
+                <button type="submit" class="btn btn-success mt-2">Salvar</button>
             </form>
 
         </div>

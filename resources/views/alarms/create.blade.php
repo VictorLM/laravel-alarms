@@ -34,7 +34,7 @@
                     <div class="col-6">
                         <div class="mb-3">
                             <label for="type" class="form-label">Status</label>
-                            <select class="form-select" id="active" name="active">
+                            <select class="form-select" id="active" name="active" required>
                                 <option value="1" {{ old('active') !== null && old('active') == 1 ? 'selected' : '' }}>
                                     Ativado
                                 </option>
@@ -53,7 +53,7 @@
 
                 <div class="mb-3">
                     <label for="type" class="form-label">Classificação</label>
-                    <select class="form-select" id="classification" name="classification">
+                    <select class="form-select" id="classification" name="classification" required>
                         <option {{ old('classification') === '' ? 'selected' : '' }}>Selecione uma opção</option>
                         <option value="urgent" {{ old('classification') === 'urgent' ? 'selected' : '' }}>Urgente</option>
                         <option value="emergent" {{ old('classification') === 'emergent' ? 'selected' : '' }}>Emergente
@@ -65,7 +65,7 @@
 
                 <div class="mb-3">
                     <label for="type" class="form-label">Equipamento</label>
-                    <select class="form-select" id="equipment_id" name="equipment_id">
+                    <select class="form-select" id="equipment_id" name="equipment_id" required>
                         <option {{ old('equipment_id') === '' ? 'selected' : '' }}>Selecione uma opção</option>
                         @foreach ($equipments as $equipment)
                             <option value={{ $equipment->id }}
@@ -75,7 +75,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn btn-primary mt-2">Salvar</button>
+                <button type="submit" class="btn btn-success mt-2">Salvar</button>
             </form>
 
         </div>

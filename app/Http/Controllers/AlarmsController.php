@@ -91,6 +91,11 @@ class AlarmsController extends Controller
         // prevent equipment id update
         $data = array_merge($data, ['equipment_id' => $alarm->equipment->id]);
 
+        // TODO - send e-mail to "abcd@abc.com.br when a "urgent" alarm change status
+        // if ($alarm->classification === "urgent" && $alarm->deactivated_at !== $data->deactivated_at) {
+        //     sendWarningEmail($alarm, "update");
+        // }
+
         $alarm->update($data);
 
         return redirect()->route('alarms.index')->with('success', 'Alarme atualizado com sucesso!');
@@ -99,8 +104,15 @@ class AlarmsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Alarm $alarm)
     {
-        //
+        $alarm->delete();
+
+        // TODO - send e-mail to "abcd@abc.com.br when delete a "urgent" alarm
+        // if ($alarm->classification === "urgent") {
+        //     sendWarningEmail($alarm, "delete");
+        // }
+
+        return redirect()->route('alarms.index')->with('success', 'Alarme excluído com sucesso!');
     }
 }

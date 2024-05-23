@@ -20,7 +20,7 @@ class Equipment extends Model
     protected $fillable = ['name', 'description', 'serial_number', 'type'];
 
     /**
-     * Get the alarms for the equipment.
+     * Get the Alarms for the Equipment.
      */
     public function alarms(): HasMany
     {

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Alarm extends Model
 {
@@ -25,5 +26,13 @@ class Alarm extends Model
     public function equipment(): BelongsTo
     {
         return $this->belongsTo(Equipment::class);
+    }
+
+    /**
+     * Get the Actuations for the Alarm.
+     */
+    public function actuations(): HasMany
+    {
+        return $this->hasMany(AlarmActuation::class);
     }
 }

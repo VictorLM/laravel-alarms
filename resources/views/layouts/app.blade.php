@@ -25,9 +25,9 @@
 
     <main class="d-flex flex-nowrap h-100">
 
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-            <a href="/actuations"
-                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary h-100"
+            style="width: 250px; position: fixed; z-index: 1; top: 0; left: 0;">
+            <a href="/actuations" class="d-flex align-items-center mb-2 link-body-emphasis text-decoration-none">
                 <span class="fs-4">Laravel Alarmes</span>
             </a>
             <hr>
@@ -71,8 +71,9 @@
                 </ul>
             </div>
         </div>
-
-        @yield('content')
+        <div class="w-100" style="margin-left: 250px;">
+            @yield('content')
+        </div>
 
     </main>
 </body>
